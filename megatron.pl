@@ -15,6 +15,8 @@ use X11::GUITest qw/
     SendKeys
   /;
 
+$ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
+
 my $computerName = "megatron";
 my $soundDevice = "alsa";
 my $soundInput = "default";
@@ -138,6 +140,9 @@ sub process_audio {
 			open (TEMPFILE, ">>".$aFile.".txt");
 			print TEMPFILE "$content";
 			close(TEMPFILE);
+		}
+		else {
+			print "\n\n".$response->content."\n\n";
 		}
 		my $speech = `cat $aFile.txt | sed 's/.*utterance":"//' | sed 's/","confidence.*//'`;
 		my $confidence = `cat $aFile.txt | sed 's/.*confidence"://' | sed 's/\}\]\}//'`;
