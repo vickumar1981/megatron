@@ -113,7 +113,7 @@ exit (1);
 sub record_audio {
 	while ($listen == 1) {
 		my $fileName = int(rand(10000));
-		`sox -q -t $soundDevice $soundInput $fileName.wav rate 16k silence 1 0.1 5% 1 1.5 5% 2>$fileName.errorOutput`;
+		`sox -q -t $soundDevice $soundInput $fileName.wav rate 16k silence 1 0.1 3% 1 1.5 3% 2>$fileName.errorOutput`;
 		`sox $fileName.wav $fileName.flac gain -n -5 silence 1 5 2%`;		
 		`rm $fileName.errorOutput &`;
 		`rm $fileName.wav &`;
@@ -140,9 +140,6 @@ sub process_audio {
 			open (TEMPFILE, ">>".$aFile.".txt");
 			print TEMPFILE "$content";
 			close(TEMPFILE);
-		}
-		else {
-			print "\n\n".$response->content."\n\n";
 		}
 		my $speech = `cat $aFile.txt | sed 's/.*utterance":"//' | sed 's/","confidence.*//'`;
 		my $confidence = `cat $aFile.txt | sed 's/.*confidence"://' | sed 's/\}\]\}//'`;
