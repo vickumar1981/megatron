@@ -23,7 +23,7 @@ my $soundInput = "default";
 my $halAutoSave = 1;
 my $audioConfidence = 0.75;
 my $speakCmd = "espeak -s 140";
-my $url = "https://www.google.com/speech-api/v1/recognize?xjerr=1&client=chromium&lang=en-US";
+my $url = "https://www.google.com/speech-api/v2/recognize?output=json&client=chromium&lang=en-US&key=AIzaSyDFVYJxwAC9YFB3G6hl8yeH3Y2mAHSJscI";
 my $chachaurl = "http://www.chacha.com/question/";
 my $wolframId = "";
 
@@ -141,13 +141,16 @@ sub process_audio {
 			print TEMPFILE "$content";
 			close(TEMPFILE);
 		}
-		my $speech = `cat $aFile.txt | sed 's/.*utterance":"//' | sed 's/","confidence.*//'`;
-		my $confidence = `cat $aFile.txt | sed 's/.*confidence"://' | sed 's/\}\]\}//'`;
+		my @fileData = `cat $aFile.txt`;
+		my ($dummy, $speechLine) = split(/transcript":"/, $fileData[$#fileData], 2);
+		my ($speech, $restLine) = split (/",/, $speechLine, 2);
+		my ($dummyConf, $confLine) = split(/confidence":/, $fileData[$#fileData], 2);
+		my ($confidence, $restConf) = split (/\}/, $confLine, 2);
 		`rm $aFile.txt &`;	
-		`rm $aFile.flac &`;
+		`rm $aFile.flac &`;		
 
 		my $input_speech = "";
-		if ($speech !~ /^{/) {			
+		if ($speech ne "") {			
 			my $input_speech = $speech;
 			chomp($input_speech);
 			$input_speech =~ s/^\s+//;
