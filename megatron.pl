@@ -336,9 +336,9 @@ sub process_audio {
 					my $chacharesponse = "";
 					$chacharesponse = get $chachaurl.$chachaquestion;
 					if (defined($chacharesponse) == 1) {					
-						my @arrayResp = split(/<h2>/, $chacharesponse);
+						my @arrayResp = split(/ChaCha Answer:/, $chacharesponse);
 						if (defined ($arrayResp[1]) == 1) {
-							my @otherResp = split(/<span>/, $arrayResp[1]);
+							my @otherResp = split(/\,/, $arrayResp[1]);
 							$chacharesponse = $otherResp[0];
 							$chacharesponse =~ s/^\s+//;
 							$chacharesponse =~ s/\s+$//;
