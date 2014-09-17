@@ -2,7 +2,7 @@
 
 require LWP::UserAgent;
 use strict;
-use warnings;
+# use warnings;
 use threads;
 
 use Thread::Queue;
