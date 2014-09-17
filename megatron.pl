@@ -338,10 +338,11 @@ sub process_audio {
 					if (defined($chacharesponse) == 1) {					
 						my @arrayResp = split(/ChaCha Answer:/, $chacharesponse);
 						if (defined ($arrayResp[1]) == 1) {
-							my @otherResp = split(/\,/, $arrayResp[1]);
+							my @otherResp = split(/\/\>/, $arrayResp[1]);
 							$chacharesponse = $otherResp[0];
 							$chacharesponse =~ s/^\s+//;
 							$chacharesponse =~ s/\s+$//;
+							$chacharesponse =~ s/\"//;
 							while ($chacharesponse =~ /\<a.*\>/) {
 								$chacharesponse =~ s/(\<a.*\>)(.+)(\<\/a.*\>)/$2/;
 							}
