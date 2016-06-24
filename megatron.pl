@@ -113,7 +113,7 @@ exit (1);
 sub record_audio {
 	while ($listen == 1) {
 		my $fileName = int(rand(10000));
-		`sox -q -t $soundDevice $soundInput $fileName.wav rate 16k silence 1 0.1 5% 1 1.5 5% 2>$fileName.errorOutput`;
+		`sox -q -t $soundDevice $soundInput $fileName.wav rate 16k silence 1 0.1 5% 1 2.5 8% 2>$fileName.errorOutput`;
 		`sox $fileName.wav $fileName.flac gain -n -5 silence 1 5 2%`;		
 		`rm $fileName.errorOutput &`;
 		`rm $fileName.wav &`;
@@ -134,7 +134,7 @@ sub process_audio {
 		}
 		close(AUDIOFILE);
 		my $ua = LWP::UserAgent->new;
-		my $response = $ua->post($url, Content_Type => "audio/x-flac; rate=16000", Content => $audio);
+		my $response = $ua->post($url, Content_Type => "audio/x-flac; rate=44100", Content => $audio);
 		if ($response->is_success) {
 			my $content = $response->content;
 			open (TEMPFILE, ">>".$aFile.".txt");

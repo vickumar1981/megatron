@@ -49,7 +49,7 @@ common problems
 
 You might need to adjust the settings on your input microphone to get megatron to listen to you.
 
-Once sox is installed, you can test out your recording device by typing 'sox -q -t alsa default test.wav rate 16k silence 1 0.1 5% 1 1.5 5%' and then play the file back using 'play test.wav'.
+Once sox is installed, you can test out your recording device by typing 'sox -q -t alsa default test.wav rate 16k silence 1 0.1 5% 1 2.5 8%' and then play the file back using 'play test.wav'.
 
 Make sure the test.wav file sounds audible, and that the sox program only stops recording when you stop speaking.
 
